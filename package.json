@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "puppeteer": "^24.4.0",
+    "puppeteer-cluster": "^0.24.0",
+    "restify": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/restify": "^8.5.12",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "serve": "node dist/index.js",
+    "dev": "nodemon --ext ts --exec ts-node src/index.ts"
+  }
+}
