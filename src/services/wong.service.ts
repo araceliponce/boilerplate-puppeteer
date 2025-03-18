@@ -30,7 +30,7 @@ export class WongService {
                 return products
             })
             console.log(info)
-            return await page.screenshot()
+            return info
         });
     }
 }
