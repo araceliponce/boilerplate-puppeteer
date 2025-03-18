@@ -7,8 +7,10 @@ export const initCluster = async () => {
         concurrency: Cluster.CONCURRENCY_CONTEXT,
         maxConcurrency: 5,
         puppeteerOptions: {
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            headless: false,
+            args: ['--no-sandbox', '--disable-features=SameSiteByDefaultCookies,CookiesWithoutSameSiteMustBeSecure','--disable-setuid-sandbox','--start-maximized'],
+            timeout: 300000,
+            defaultViewport: null
         },
     });
 };
