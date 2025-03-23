@@ -11,7 +11,7 @@ export const initCluster = async () => {
         concurrency: Cluster.CONCURRENCY_CONTEXT,
         maxConcurrency: 5,
         puppeteer,
-        timeout: 120000,
+        timeout: 120000, //timeout 120 segundos s4 22:00
         puppeteerOptions: {
             headless: false,
             args: ['--no-sandbox',

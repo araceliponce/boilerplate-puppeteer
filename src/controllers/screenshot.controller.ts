@@ -42,7 +42,7 @@ export const screenshotControllerJS = async (req: Request, res: Response, next: 
 };
 
 
-export const wongScrapePage = async (req: Request, res: Response, next: Next) => {
+export const tottusScrapePage = async (req: Request, res: Response, next: Next) => {
     const page = req.query.page;
     console.log(page)
     if (!page) {
@@ -51,8 +51,18 @@ export const wongScrapePage = async (req: Request, res: Response, next: Next) =>
     }
 
     try {
-        const data = await WongService.getItemsbyURL(`https://tottus.falabella.com.pe/tottus-pe/category/CATG11954/Bebidas-y-licores?sid=TT_WEB_HO_CAT_9_LICORES_20240415&subdomain=tottus&page=2&store=tottus`);
-        res.send(200, data);;
+        //just one url
+        // const data = await WongService.getItemsbyURL(`https://tottus.falabella.com.pe/tottus-pe/category/CATG11954/Bebidas-y-licores?sid=TT_WEB_HO_CAT_9_LICORES_20240415&subdomain=tottus&page=${page}&store=tottus`);
+        // res.send(200, data);
+
+        //s4 37:00, 3 urls en paralelo
+        const data = await Promise.all([
+            WongService.getItemsbyURL(`https://tottus.falabella.com.pe/tottus-pe/category/CATG11954/Bebidas-y-licores?sid=TT_WEB_HO_CAT_9_LICORES_20240415&subdomain=tottus&page=${page}&store=tottus`),
+            WongService.getItemsbyURL(`https://tottus.falabella.com.pe/tottus-pe/category/CATG11954/Bebidas-y-licores?sid=TT_WEB_HO_CAT_9_LICORES_20240415&subdomain=tottus&page=${page + 1}&store=tottus`),
+            WongService.getItemsbyURL(`https://tottus.falabella.com.pe/tottus-pe/category/CATG11954/Bebidas-y-licores?sid=TT_WEB_HO_CAT_9_LICORES_20240415&subdomain=tottus&page=${page + 2}&store=tottus`)
+        ]
+        )
+        res.send(200, data);
     } catch (error) {
         console.log(error)
         res.send(500, { error: (error as Error).message });
